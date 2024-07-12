@@ -83,26 +83,52 @@ public class Helpers {
         return matrix;
     }
 
-    public int[][] getMatrixAssignment() {
-        Scanner scanner = new Scanner(System.in);
-        int m = getSize("Enter the number of workers: ");
-        int n = getSize("Enter the number of tasks: ");
-        int[][] matrix = new int[m][n];
-        try {
-            for (int i = 0; i < m; i++) {
-                System.out.println("Enter the cost of worker " + (i + 1) + " for all tasks: ");
-                for (int j = 0; j < n; j++) {
-                    System.out.print("Task " + (j + 1) + ": ");
+    public static int getMatrixSize(Scanner scanner) {
+        int size = 0;
+        System.out.print("Enter the size of the matrices (n x n): ");
+        while (true) {
+            try {
+                size = scanner.nextInt();
+                if (size <= 0) {
+                    System.out.println("Size must be a positive integer. Try again.");
+                    continue;
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter an integer value.");
+                scanner.next(); // Consume invalid input
+            }
+        }
+        return size;
+    }
+
+    public static int[][] getMatrixStrassen(Scanner scanner, int size) {
+        int[][] matrix = new int[size][size];
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                System.out.printf("Element at row %d, column %d: ", i + 1, j + 1);
+                try {
                     matrix[i][j] = scanner.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Invalid input. Please enter an integer value.");
+                    scanner.next(); // Consume invalid input
+                    j--; // Retry current element
                 }
             }
-            return matrix;
-        } catch (Exception e) {
-            System.out.println("Please enter a valid number!");
-            scanner.next(); // To clear the invalid input
-            getMatrixAssignment();
         }
         return matrix;
+    }
+
+    // Helper method to print a matrix
+    public static void printMatrix(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(matrix[i][j] + "  ");
+            }
+            System.out.println();
+        }
     }
 
     public int getChoice(String question, ArrayList<String> choices) {

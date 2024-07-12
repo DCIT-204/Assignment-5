@@ -25,7 +25,8 @@ public class App {
                 "6. Prim's MST Algorithm",
                 "7. Kruskal's MST Algorithm",
                 "8. Dijkstra's Algorithm",
-                "9. Huffman Encoding")));
+                "9. Huffman Encoding",
+                "10. Strassen Matrix Multiplication")));
         System.out.println("You selected: " + preference);
         switch (preference) {
             case 1:
@@ -63,6 +64,22 @@ public class App {
                 timeTaken = helpers.measureTime(() -> {
                     int min_path = travellingSalesman.compute(graph, s);
                     System.out.println("Minimum path weight: " + min_path);
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
+            case 10:
+                int size = Helpers.getMatrixSize(scanner);
+                System.out.println("Enter the elements of the first matrix:");
+                int[][] A = Helpers.getMatrixStrassen(scanner, size);
+
+                System.out.println("Enter the elements of the second matrix:");
+                int[][] B = Helpers.getMatrixStrassen(scanner, size);
+
+                timeTaken = helpers.measureTime(() -> {
+                    int[][] result = StrassenMatrixMultiplication.strassenMultiply(A, B);
+                    System.out.println("Resulting matrix:");
+                    Helpers.printMatrix(result);
                 });
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
