@@ -68,6 +68,53 @@ public class App {
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
 
+            case 6:
+                int numberOfVertices = helpers.getSize("Enter the number of vertices (minimum 2): ");
+                List<List<Edge>> adjacencyList = new ArrayList<>();
+                for (int i = 0; i < numberOfVertices; i++) {
+                    adjacencyList.add(new ArrayList<>());
+                }
+                System.out.println("Enter the edges (format: startVertex endVertex weight):");
+                System.out.println("Vertex values should be between 0 and " + (numberOfVertices - 1));
+
+                // You need numberOfVertices - 1 edges to form a minimum spanning tree
+                int edgesNeeded = numberOfVertices - 1;
+                int edgesEntered = 0;
+
+                while (edgesEntered < edgesNeeded) {
+                    String input = scanner.nextLine().trim();
+                    String[] parts = input.split("\\s+");
+                    if (parts.length < 3) {
+                        System.out.println("Invalid input format. Please enter again.");
+                        continue;
+                    }
+                    try {
+                        int startVertex = Integer.parseInt(parts[0]);
+                        int endVertex = Integer.parseInt(parts[1]);
+                        int weight = Integer.parseInt(parts[2]);
+                        if (startVertex < 0 || startVertex >= numberOfVertices ||
+                                endVertex < 0 || endVertex >= numberOfVertices) {
+                            System.out.println("Vertex values should be between 0 and " + (numberOfVertices - 1));
+                            continue;
+                        }
+                        adjacencyList.get(startVertex).add(new Edge(startVertex, endVertex, weight));
+                        adjacencyList.get(endVertex).add(new Edge(endVertex, startVertex, weight)); // for undirected
+                                                                                                    // graph
+                        edgesEntered++;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number format. Please enter again.");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Vertex index out of bounds. Please enter again.");
+                    }
+                }
+
+                // After enough edges have been entered, proceed with Prim's MST algorithm
+                timeTaken = helpers.measureTime(() -> {
+                    PrimsMST.primMST(adjacencyList, numberOfVertices);
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
             case 10:
                 int size = Helpers.getMatrixSize(scanner);
                 System.out.println("Enter the elements of the first matrix:");
