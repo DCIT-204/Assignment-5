@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package src;
 
 public class StrassenMatrixMultiplication {
 
@@ -91,78 +91,4 @@ public class StrassenMatrixMultiplication {
 
         return C;
     }
-
-    // Helper method to print a matrix
-    public static void printMatrix(int[][] matrix) {
-        int n = matrix.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j] + "  ");
-            }
-            System.out.println();
-        }
-    }
-
-    // Method to read a matrix from user input
-    public static int[][] getMatrix(Scanner scanner, int size) {
-        int[][] matrix = new int[size][size];
-        System.out.println("Enter the elements of the matrix:");
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.printf("Element at row %d, column %d: ", i + 1, j + 1);
-                try {
-                    matrix[i][j] = scanner.nextInt();
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please enter an integer value.");
-                    scanner.next(); // Consume invalid input
-                    j--; // Retry current element
-                }
-            }
-        }
-        return matrix;
-    }
-
-    public static int getSize(Scanner scanner) {
-        int size = 0;
-        System.out.print("Enter the size of the matrices (n x n): ");
-        while (true) {
-            try {
-                size = scanner.nextInt();
-                if (size <= 0) {
-                    System.out.println("Size must be a positive integer. Try again.");
-                    continue;
-                }
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter an integer value.");
-                scanner.next(); // Consume invalid input
-            }
-        }
-        return size;
-    }
-
-
-    //The code below should be implemented in the main function of the class that uses this class
-    
-
-
-    // public static void main(String[] args) {
-    //     Scanner scanner = new Scanner(System.in);
-
-    //     int size = getSize(scanner);
-
-    //     System.out.println("Enter the elements of the first matrix:");
-    //     int[][] A = getMatrix(scanner, size);
-
-    //     System.out.println("Enter the elements of the second matrix:");
-    //     int[][] B = getMatrix(scanner, size);
-
-    //     int[][] C = strassenMultiply(A, B);
-
-    //     System.out.println("Result matrix:");
-    //     printMatrix(C);
-    // }
-
-    
 }
-
