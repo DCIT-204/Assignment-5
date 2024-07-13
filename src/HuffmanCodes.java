@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class HuffmanCodes {
     //method obtains frequencies of each character
-    public HashMap<Character, Integer> getFrequency(String inputText) {
+    public static HashMap<Character, Integer> getFrequency(String inputText) {
         HashMap<Character, Integer> frequency = new HashMap<>();
 
         for (char character : inputText.toCharArray()) {
@@ -114,6 +114,13 @@ public class HuffmanCodes {
             }
         }
         return decodedString.toString();
+    }
+
+    //method to get encoded text
+    public static String getEncodedInput(String inputText){
+        Node root =huffmanTree(getFrequency(inputText));
+        HashMap<Character,String> map=huffmanCodes(root);
+        return encode(inputText,map);
     }
 
 
