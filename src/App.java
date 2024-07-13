@@ -9,12 +9,12 @@ public class App {
 
     private static Helpers helpers = new Helpers();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Welcome to the Algorithm Navigation App!");
         runProgram();
     }
 
-    public static void runAlgorithm(Scanner scanner) {
+    public static void runAlgorithm(Scanner scanner) throws InterruptedException {
         long timeTaken = 0;
          ArrayList<String> choices = new ArrayList<>(List.of(
                 "1. Quick Sort",
@@ -139,6 +139,19 @@ public class App {
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
 
+            case 9:
+                timeTaken = helpers.measureTime(() -> {
+                    try {
+                        HuffmanCodes.HuffmanExecution();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
+
             case 10:
                 int size = Helpers.getMatrixSize(scanner);
                 System.out.println("Enter the elements of the first matrix:");
@@ -162,7 +175,7 @@ public class App {
 
     }
 
-    public static void runProgram() {
+    public static void runProgram() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
