@@ -113,6 +113,7 @@ int weight
         For vertex = 1 to numberOfVertices - 1:
             Print parentVertex[vertex] + " - " + vertex + "\t" + minimumWeight[vertex]
 
+
             #Kruskal MST Algorithm
            Kruskal’s MST : this is a type of an algorithm that  sorts all edges of a  graph by their weights and adds them to the MST one by one, ensuring that no cycles are formed.
 
@@ -183,124 +184,5 @@ End
 ![Kruskal's_Algo_Flowchart](./c:\Users\NETHERLAND STORE\Downloads\Flowchartt.png)
 
 
-=======
-## HUFFMAN CODES
-
-### TIME COMPLEXITY ANALYSIS
-The time complexity of Huffman codes algorithm is O(nlog n), where n is the number of characters in the input string.
-The construction of the Huffman tree was done by repeatedly merging nodes of smaller frequencies(which became leafs to a
-parent node).
-This accounts for the algorithm's logarithmic time complexity.
 
 
-### FLOWCHART
-!['Huffman code FlowChart](./images/huffmanCode.png)
-
-
-### PSEUDOCODE
-Class HuffmanCodes :
-    //method obtains frequencies of each character
- HashMap<Character, Integer> getFrequency(String inputText) {
-        HashMap<Character, Integer> frequency = new HashMap<>();
-
-        for each char character in inputText.toCharArray()) :
-            frequency.addto(character, frequency.getOrDefault(character, 0) + 1);
-        
-        return frequency;
-    
-
-    //Node class with two constructors
-    Class Node:
-        //attributes of Node class
-        int frequency;
-        char character;
-        Node leftNode;
-        Node rightNode;
-        
-        //1ST constructor initializes frequency and character attributes
-        constructor Node (char character, int frequency):
-            this.character = character;
-            this.frequency = frequency;
-            
-        //2ND constructor initializes frequency,left and right Nodes
-       constructor Node(int frequency, Node leftNode, Node rightNode):
-            this.frequency = frequency;
-            this.leftNode = leftNode;
-            this.rightNode = rightNode;
-        
-//building the huffman tree to obtain root node
-Node huffmanTree(HashMap<Character, Integer> frequencyMap):
-        PriorityQueue<Node> huffmanQueue = new PriorityQueue<>();
-        
-         //adding nodes to the PriorityQueue
-        For each char character in frequencyMap.keySet():
-            huffmanQueue.add(new Node(character,frequencyMap.get(character)));
-        End For
-        
-
-        //compressing each node into one root node
-        While huffmanQueue.size()>1:
-            Node leftNode= huffmanQueue.smallestElement();
-            Node rightNode=huffmanQueue.samallestElement();
-            Node parentNode = new Node(left.frequency+right.frequency,leftNode,rightNode);
-            huffmanQueue.add(parentNode);
-         End While
-            
-        //returning the root node
-        return huffmanQueue.lastElement();
-    
-//Huffman code generation for each character
-HashMap<Character,String> huffmanCodes(Node root):
-         HashMap<Character,String> characterCodeMap = new HashMap<>();
-         codeGenerator(root," ",characterCodeMap);
-           return characterCodeMap;
-    
-
-//codeGenerator method
-void codeGenerator(Node node,String code,HashMap<Character,String> characterCodeMap):
-        If node==null:
-            characterCodeMap.put(' ',"");
-       End If
-            
-        If node.left== null && node.right==null:
-            characterCodeMap.put(node.character,code);
-       End If
-            
-        Else:
-            codeGenerator(node.left,code+"0",characterCodeMap);
-            codeGenerator(node.right,code+"1",characterCodeMap);
-        End Else
-        
-    
-
-//encoding the input text
-String encode(String inputString,HashMap<Character,String> characterCodeMap):
-      StringBuilder encodedString= new StringBuilder();
-
-        For each char character in inputString.toCharArray()):
-            encodedString.append(characterCodeMap.get(character));
-            End For
-        
-        return encodedString.changeToString();
-    
-//Decoding encoded text
-String decode(String encodedString,Node rootNode):
-        StringBuilder decodedString = new StringBuilder();
-        Node currentNode =rootNode;
-
-        For each char nodeBit in encodedString.toCharArray():            
-            If nodeBit is equal to'0':
-                currentNode=currentNode.left;
-            End If
-            
-            Else If nodeBit is equal to'1':
-                currentNode=currentNode.right;
-            End Else If
-            
-            If currentNode.left is equal to null && currentNode.right is equal to null:
-                decodedString.append(currentNode.character);
-                currentNode=rootNode;
-            End If
-         End For
-            
-        return decodedString.changeToString();
