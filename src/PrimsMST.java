@@ -2,15 +2,19 @@ package src;
 
 import java.util.*;
 
-class Edge implements Comparable<Edge> {
+class edge implements Comparable<Edge> {
     int startVertex;
     int endVertex;
     int weight;
 
-    public Edge(int startVertex, int endVertex, int weight) {
+    public edge(int startVertex, int endVertex, int weight) {
         this.startVertex = startVertex;
         this.endVertex = endVertex;
         this.weight = weight;
+    }
+
+    public edge() {
+
     }
 
     @Override
@@ -26,6 +30,7 @@ public class PrimsMST {
         PriorityQueue<Edge> minHeap = new PriorityQueue<>();
         int[] minimumWeight = new int[numberOfVertices]; // Used to store the minimum weight to reach each vertex
         int[] parentVertex = new int[numberOfVertices]; // Array to store the MST
+        int totalWeight = 0; // Variable to accumulate the total weight of the MST
 
         // Initialize minimum weights to infinity
         Arrays.fill(minimumWeight, Integer.MAX_VALUE);
@@ -44,6 +49,7 @@ public class PrimsMST {
             }
 
             isInMST[currentVertex] = true;
+            totalWeight += currentEdge.weight; // Add the weight of the current edge to the total weight
 
             // Process all the adjacent vertices of the dequeued vertex
             for (Edge adjacentEdge : adjacencyList.get(currentVertex)) {
@@ -63,5 +69,6 @@ public class PrimsMST {
         for (int vertex = 1; vertex < numberOfVertices; vertex++) {
             System.out.println(parentVertex[vertex] + " - " + vertex + "\t" + minimumWeight[vertex]);
         }
+        System.out.println("Total weight of MST: " + totalWeight);
     }
 }
