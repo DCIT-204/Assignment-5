@@ -1,5 +1,93 @@
 # Assignment_5
 
+## Quickhull Algorithm
+The quick hull algorithm is a divide and conquer algorithm that is used to find the convex hull of a set of points. The convex hull is the smallest convex polygonal shape around the set of points. Basically, it draws a polygon using the points, making sure that no point is outside the drawn polygon.
+
+### Algorithm
+1. Find the minimum and maximum x points. Add these points to the convex hull.
+2. Partition the points into those above and below the line.
+3. Find the max distance point from each partition and form a triangle. Add these points to the convex hull. 
+4. Disregard the points found inside the triangle from the convex hull search, as they cannot be part of the convex hull.
+5. Now, recursively perform the quickhull algorithm on the remaining possible convex hull points, until there are no more possible convex hull points. 
+
+### Pseudocode
+```
+function quickHull(points):
+    hull = empty ArrayList of points
+
+    if points.size() < 3:
+        return points
+
+    arrangedPoints = arrangePoints(points)
+    minAndMaxPoints = findMinAndMaxPoints(arrangedPoints)
+    minPoint = minAndMaxPoints[0]
+    maxPoint = minAndMaxPoints[1]
+
+    hull.add(minPoint)
+    hull.add(maxPoint)
+
+    pointsAbovePartition = findPointsAbovePartition(arrangedPoints, minAndMaxPoints)
+    pointsBelowPartition = findPointsBelowPartition(arrangedPoints, minAndMaxPoints)
+
+    pointsWithMaxDistance = findMaxDistanceFromMaxAndMinPoints(pointsAbovePartition, pointsBelowPartition, minAndMaxPoints)
+
+    pointsAfterQuickHull = removePointsInsideTriangle(minAndMaxPoints, pointsWithMaxDistance[0], pointsWithMaxDistance[1], pointsAbovePartition, pointsBelowPartition)
+
+    remainingHullPoints = empty ArrayList of points
+    remainingHullPoints.addAll(quickHull(pointsAfterQuickHull[0]))
+    remainingHullPoints.addAll(quickHull(pointsAfterQuickHull[1]))
+
+    return remainingHullPoints
+```
+
+### Flowchart
+
+![`Flowchart for the Quickhull Algorithm`](./images/quickhull-alg-flowchart.png)
+
+### Time Complexity
+The time complexity of the Quickhull algorithm can be calculated by using The Master Theorem. 
+The Master Theorem finds the time complexity of a divide and conquer algorithm, which can be expressed as a recurrence relation.
+
+The general form of the recurrence relation is
+$$ \begin{equation} T(n) = aT(\frac{n}{b}) + O(n) \end{equation} $$
+where:
+- $ a $ is the number of subproblems in the algorithm
+- $ \frac{n}{b} $ is the size of each subproblem
+- $ f(n) $ is the cost of the work done outside of the recursive calls.
+
+After finding the recursive function of the algorithm, if $ f(n) = O (n^d) $ for some $ d \ge 1 $, then the time complexity is given as
+
+$$ 
+\begin{equation}
+T(n)=
+    \begin{cases}
+        O(n^d) & \text{if } a \ > \ b^d \\
+        O(n^d\log n) & \text{if } a \ = \ b^d \\
+        O(n^{log_ba}) & \text{if } a \ < \ b^d \
+    \end{cases}
+\end{equation}
+$$
+
+In the Quickhull algorithm, we have that:
+- $ a = 2 $ since we divide the set of points into two.
+- $ b = 2 $ since each subproblem is also divided into two
+- $ f(n) = O(n) $ because the work done outside the algorithm includes: 
+    - Finding the Min and Max Points: $ O(n) $
+    - Partitioning Points: $ O(n) $
+    - Finding the Farthest Points: $ O(n) $
+    - Removing Points Inside the Triangle: $ O(n) $
+
+Thus, the recurrence relation for the Quickhull Algorithm becomes, from $ (1) $:
+
+$$ \begin{equation} T(n) = 2T(\frac{n}{2}) + O(n) \end{equation} $$
+
+Since $ f(n) = O(n) $, we have that $ d = 1 $ and $ b^d = 2^1 = 2 $
+
+Comparing $ a $ and $ b^d $, we see that $ a = b^d $, which satisfies the second condition from $ (2) $, meaning that its time complexity is of the form $ O(n^d \log n) $
+
+Since $ d = 1 $, the time complexity of the Quickhull Algorithm is 
+$$ O(n \log n) $$
+
 ## Strassen's Matrix Multiplication
 
 This algorithm is used to multiply to matrices of the same size(i.e n x n). It is faster than the traditional matrix multiplication algorithm. It uses the divide and conquer method to achieve this.
