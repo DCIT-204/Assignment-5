@@ -110,7 +110,7 @@ public class App {
                             System.out.println("Vertex values should be between 0 and " + (numberOfVertices - 1));
                             continue;
                         }
-                        adjacencyList.get(startVertex).add(new Edge(startVertex, endVertex, weight));
+                        adjacencyList.get(startVertex).add( new Edge(startVertex, endVertex, weight));
                         adjacencyList.get(endVertex).add(new Edge(endVertex, startVertex, weight)); // for undirected
                                                                                                     // graph
                         edgesEntered++;
