@@ -24,30 +24,30 @@ public class Djikstra {
         break;
       }
 
-      int currentNode = node.state;
-      int currentDistance = node.distanceFromParent;
+      if (node.state != Integer.MAX_VALUE) {
+        int currentNode = node.state;
+        int currentDistance = node.distanceFromParent;
 
-      if (currentNode == end) {
-        System.out.println("Path: " + getSolution(node).toString());
-        System.out.println("Distance: " + currentDistance);
-        continue;
-      }
+        if (currentNode == end) {
+          System.out.println("Path: " + getSolution(node).toString());
+          System.out.println("Distance: " + currentDistance);
+          continue;
+        }
 
-      if (visited.contains(currentNode)) {
-        continue;
-      }
+        if (visited.contains(currentNode)) {
+          continue;
+        }
 
-      visited.add(currentNode);
+        visited.add(currentNode);
 
-      for (int i = 0; i < graph[currentNode].length; i++) {
-        if (graph[currentNode][i] != 0) {
-          int newDistance = currentDistance + graph[currentNode][i];
-          queue.enQueue(new util.Node(i, node, newDistance));
-
+        for (int neighbour: util.neighboursOfNode(graph,currentNode) ) {
+          int newDistance = currentDistance + graph[currentNode][neighbour];
+          queue.enQueue(new util.Node(neighbour, node, newDistance));
         }
       }
     }
     return -1; // Return -1 if there is no path found
   }
 
-}
+
+  }
