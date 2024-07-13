@@ -9,12 +9,12 @@ public class App {
 
     private static Helpers helpers = new Helpers();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Welcome to the Algorithm Navigation App!");
         runProgram();
     }
 
-    public static void runAlgorithm(Scanner scanner) {
+    public static void runAlgorithm(Scanner scanner) throws InterruptedException {
         long timeTaken = 0;
          ArrayList<String> choices = new ArrayList<>(List.of(
                 "1. Quick Sort",
@@ -87,15 +87,13 @@ public class App {
                 for (int i = 0; i < numberOfVertices; i++) {
                     adjacencyList.add(new ArrayList<>());
                 }
-                System.out.println("Enter the edges (format: startVertex endVertex weight):");
+                System.out.println("Enter the edges (format: startVertex endVertex weight), enter 'done' to finish:");
                 System.out.println("Vertex values should be between 0 and " + (numberOfVertices - 1));
-
-                // You need numberOfVertices - 1 edges to form a minimum spanning tree
-                int edgesNeeded = numberOfVertices - 1;
-                int edgesEntered = 0;
-
-                while (edgesEntered < edgesNeeded) {
+                while (true) {
                     String input = scanner.nextLine().trim();
+                    if (input.equalsIgnoreCase("done")) {
+                        break;
+                    }
                     String[] parts = input.split("\\s+");
                     if (parts.length < 3) {
                         System.out.println("Invalid input format. Please enter again.");
@@ -113,19 +111,21 @@ public class App {
                         adjacencyList.get(startVertex).add(new Edge(startVertex, endVertex, weight));
                         adjacencyList.get(endVertex).add(new Edge(endVertex, startVertex, weight)); // for undirected
                                                                                                     // graph
-                        edgesEntered++;
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid number format. Please enter again.");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Vertex index out of bounds. Please enter again.");
                     }
                 }
-
-                // After enough edges have been entered, proceed with Prim's MST algorithm
-                timeTaken = helpers.measureTime(() -> {
-                    PrimsMST.primMST(adjacencyList, numberOfVertices);
-                });
-                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                if (adjacencyList.stream().mapToInt(List::size).sum() < (numberOfVertices - 1)) {
+                    System.out.println("You have entered fewer edges than required. Please enter more edges.");
+                    runAlgorithm(scanner);
+                } else {
+                    timeTaken = helpers.measureTime(() -> {
+                        PrimsMST.primMST(adjacencyList, numberOfVertices);
+                    });
+                    System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                }
                 break;
 
             case 8:
@@ -138,6 +138,19 @@ public class App {
                 });
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
+
+            case 9:
+                timeTaken = helpers.measureTime(() -> {
+                    try {
+                        HuffmanCodes.HuffmanExecution();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
 
             case 10:
                 int size = Helpers.getMatrixSize(scanner);
@@ -162,7 +175,7 @@ public class App {
 
     }
 
-    public static void runProgram() {
+    public static void runProgram() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
