@@ -116,9 +116,18 @@ int weight
 
 ## HUFFMAN CODES
 
+### TIME COMPLEXITY ANALYSIS
+The time complexity of Huffman codes algorithm is O(nlog n), where n is the number of characters in the input string.
+The construction of the Huffman tree was done by repeatedly merging nodes of smaller frequencies(which became leafs to a
+parent node).
+This accounts for the algorithm's logarithmic time complexity.
+
+
+### FLOWCHART
+!['Huffman code FlowChart](./images/huffmanCode.png)
+
+
 ### PSEUDOCODE
-
-
 Class HuffmanCodes :
     //method obtains frequencies of each character
  HashMap<Character, Integer> getFrequency(String inputText) {
