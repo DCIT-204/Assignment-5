@@ -95,6 +95,28 @@ public class HuffmanCodes {
     }
 
 
+    //Decoding encoded text
+    public static String decode(String encodedString,Node rootNode){
+        StringBuilder decodedString = new StringBuilder();
+        Node currentNode =rootNode;
+
+        for(char nodeBit:encodedString.toCharArray()){
+            if(nodeBit=='0'){
+                currentNode=currentNode.left;
+            }else if(nodeBit=='1'){
+                currentNode=currentNode.right;
+            }
+            if(currentNode.left== null && currentNode.right ==null){
+                decodedString.append(currentNode.character);
+
+                //resetting currentNode to decode next sequence of characters in encoded string
+                currentNode=rootNode;
+            }
+        }
+        return decodedString.toString();
+    }
+
+
 
 
 }
