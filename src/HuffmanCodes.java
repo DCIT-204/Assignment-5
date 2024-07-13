@@ -1,6 +1,7 @@
 package src;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class HuffmanCodes {
     //method obtains frequencies of each character
@@ -121,6 +122,74 @@ public class HuffmanCodes {
         Node root =huffmanTree(getFrequency(inputText));
         HashMap<Character,String> map=huffmanCodes(root);
         return encode(inputText,map);
+    }
+
+    //INTERFACE FOR HUFFMAN CODE
+
+    public static void HuffmanExecution() throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        boolean flagToContinue = true;
+
+
+        //do while loop here
+        do {
+            System.out.print("Enter text you want encoded: ");
+            String textInput = scanner.nextLine();
+            String encodedText=HuffmanCodes.getEncodedInput(textInput);
+            System.out.println("ENCODED TEXT IS: \n" + encodedText);
+
+            Thread.sleep(1000);
+
+            //ask user if they would like text to be decoded
+            System.out.println("Would you like to decode the encoded string? \n Enter yes or no to continue: ");
+            String response = scanner.nextLine();
+            String responseToContinue;
+            if (!response.toLowerCase().equals("yes") && !response.toLowerCase().equals("no")) {
+
+
+                do {
+                    Thread.sleep(1000);
+                    System.out.println("INVALID RESPONSE! \n Enter yes or no to continue...");
+                    responseToContinue = scanner.nextLine();
+
+                } while (!responseToContinue.toLowerCase().equals("yes") && !responseToContinue.toLowerCase().equals("no"));
+                response = responseToContinue;
+
+            }
+            if (response.toLowerCase().equals("yes")) {
+
+                //call decoding method
+                System.out.println("DECODED TEXT IS: \n" + HuffmanCodes.decode(encodedText,HuffmanCodes.huffmanTree(HuffmanCodes.getFrequency(textInput))));
+
+
+            }
+
+            Thread.sleep(1000);
+            System.out.println("Would you like to ENCODE another string?: ");
+            String continueResponse = scanner.nextLine();
+            String endResponse;
+            if (!continueResponse.toLowerCase().equals("yes") && !continueResponse.toLowerCase().equals("no")) {
+
+                do {
+                    Thread.sleep(1000);
+                    System.out.println("INVALID RESPONSE! \nEnter yes or no to continue...");
+                    endResponse = scanner.nextLine();
+
+                } while (!endResponse.toLowerCase().equals("yes") && !endResponse.toLowerCase().equals("no"));
+                continueResponse = endResponse;
+
+            }
+
+            if (continueResponse.toLowerCase().equals("yes")) {
+                flagToContinue = true;
+            } else {
+                flagToContinue = false;
+                System.out.println("Thank you for ENCODING!!");
+            }
+
+
+        }while (flagToContinue) ;
+
     }
 
 
