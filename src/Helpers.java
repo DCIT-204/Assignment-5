@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Helpers {
@@ -44,6 +45,29 @@ public class Helpers {
         return n;
     }
 
+    public int getSize(String message, int min) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        int n = 0;
+        try {
+            n = scanner.nextInt();
+            if (n < 1) {
+                System.out.println("Please enter a number greater than 0!");
+                n = getSize(message,min);
+            }
+
+            if(n < min){
+                System.out.println("Please enter a number greater than "+min+"!");
+                n = getSize(message,min);
+            }
+            return n;
+        } catch (Exception e) {
+            System.out.println("Please enter a valid number!");
+            n = getSize(message,min);
+        }
+        return n;
+    }
+
     public int[][] getMatrixTSP() {
         Scanner scanner = new Scanner(System.in);
         int n = getSize("Enter the number of vertices in the graph: ");
@@ -52,7 +76,7 @@ public class Helpers {
             for (int i = 0; i < n; i++) {
                 System.out.println("Enter the distances from vertex " + (i + 1) + " to all other vertices: ");
                 for (int j = 0; j < n; j++) {
-                    System.out.print("Vertex " + (i + 1) + ": ");
+                    System.out.print("Vertex " + (j + 1) + ": ");
                     matrix[i][j] = scanner.nextInt();
                 }
             }
@@ -160,6 +184,16 @@ public class Helpers {
         algorithm.run();
         long endTime = System.nanoTime();
         return endTime - startTime;
+    }
+
+    public List<Integer> neighboursOfNode(int [][] graph, int node){
+        List<Integer> neighbours = new ArrayList<>();
+        for(int i = 0; i < graph.length; i++){
+            if(graph[node][i] != 0){
+                neighbours.add(i);
+            }
+        }
+        return neighbours;
     }
 
 }
