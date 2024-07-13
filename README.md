@@ -1,7 +1,7 @@
 # Assignment_5
 
 ## Quickhull Algorithm
-The quick hull algorithm is a divide and conquer algorithm that is used to find the convex hull of a set of points. The convex hull is the smallest convex polygonal shape around the set of points. Basically, it draws a polygon using the points, making sure that no point is outside the drawn polygon.
+The Quickhull Algorithm is a divide and conquer algorithm that is used to find the convex hull of a set of points. The convex hull is the smallest convex polygonal shape around the set of points. Basically, it draws a polygon using the points, making sure that no point is outside the drawn polygon.
 
 ### Algorithm
 1. Find the minimum and maximum x points. Add these points to the convex hull.
