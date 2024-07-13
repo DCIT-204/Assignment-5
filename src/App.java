@@ -16,7 +16,7 @@ public class App {
 
     public static void runAlgorithm(Scanner scanner) {
         long timeTaken = 0;
-        int preference = helpers.getChoice("Select an algorithm to run:", new ArrayList<>(Arrays.asList(
+         ArrayList<String> choices = new ArrayList<>(List.of(
                 "1. Quick Sort",
                 "2. Merge Sort",
                 "3. The Closest-Pair Algorithm",
@@ -26,8 +26,9 @@ public class App {
                 "7. Kruskal's MST Algorithm",
                 "8. Dijkstra's Algorithm",
                 "9. Huffman Encoding",
-                "10. Strassen Matrix Multiplication")));
-        System.out.println("You selected: " + preference);
+                "10. Strassen Matrix Multiplication"));
+        int preference = helpers.getChoice("Select an algorithm to run:",choices );
+        System.out.println("You selected: " + choices.get(preference-1) );
         switch (preference) {
             case 1:
                 int[] quickSortArr = helpers.getArray();
@@ -69,7 +70,7 @@ public class App {
                 break;
 
             case 6:
-                int numberOfVertices = helpers.getSize("Enter the number of vertices (minimum 2): ");
+                int numberOfVertices = helpers.getSize("Enter the number of vertices (minimum 2): ", 2);
                 List<List<Edge>> adjacencyList = new ArrayList<>();
                 for (int i = 0; i < numberOfVertices; i++) {
                     adjacencyList.add(new ArrayList<>());
@@ -111,6 +112,17 @@ public class App {
                 // After enough edges have been entered, proceed with Prim's MST algorithm
                 timeTaken = helpers.measureTime(() -> {
                     PrimsMST.primMST(adjacencyList, numberOfVertices);
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
+            case 8:
+                int[][] dijkGraph = helpers.getMatrixTSP();
+                int source = helpers.getSize("Enter the source node: ");
+                int target = helpers.getSize("Enter the target node: ");
+                timeTaken = helpers.measureTime(() -> {
+                    int min_path = Djikstra.dijkstra(dijkGraph,source-1,target-1);
+
                 });
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
