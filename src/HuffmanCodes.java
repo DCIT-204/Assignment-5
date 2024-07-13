@@ -44,7 +44,6 @@ public class HuffmanCodes {
 
 
     //building the huffman tree to obtain root node
-
     public static Node huffmanTree(HashMap<Character, Integer> frequencyMap) {
         PriorityQueue<Node> huffmanQueue = new PriorityQueue<>();
 
@@ -63,6 +62,28 @@ public class HuffmanCodes {
         //returning the root node
         return huffmanQueue.poll();
     }
+
+    //Huffman code generation for each character
+    public static HashMap<Character,String> huffmanCodes(Node root){
+        HashMap<Character,String> characterCodeMap = new HashMap<>();
+        codeGenerator(root," ",characterCodeMap);
+        return characterCodeMap;
+    }
+
+    //codeGenerator method
+    public static void codeGenerator(Node node,String code,HashMap<Character,String> characterCodeMap){
+        if(node==null){
+            characterCodeMap.put(' ',"");
+        }
+        if(node.left== null && node.right==null){
+            characterCodeMap.put(node.character,code);
+        }
+        else{
+            codeGenerator(node.left,code+"0",characterCodeMap);
+            codeGenerator(node.right,code+"1",characterCodeMap);
+        }
+    }
+
 
 }
 
