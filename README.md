@@ -113,7 +113,7 @@ int weight
         For vertex = 1 to numberOfVertices - 1:
             Print parentVertex[vertex] + " - " + vertex + "\t" + minimumWeight[vertex]
 
-            #Kruskal MST Algorithm
+## Kruskal MST Algorithm
            Kruskal’s MST : this is a type of an algorithm that  sorts all edges of a  graph by their weights and adds them to the MST one by one, ensuring that no cycles are formed.
 
             ##Pseudocode
@@ -183,7 +183,6 @@ End
 ![Kruskal's_Algo_Flowchart](./c:\Users\NETHERLAND STORE\Downloads\Flowchartt.png)
 
 
-=======
 ## HUFFMAN CODES
 
 ### TIME COMPLEXITY ANALYSIS
@@ -304,70 +303,3 @@ String decode(String encodedString,Node rootNode):
          End For
             
         return decodedString.changeToString();
-#Kruskal MST Algorithm
-           Kruskal’s MST : this is a type of an algorithm that  sorts all edges of a  graph by their weights and adds them to the MST one by one, ensuring that no cycles are formed.
-
-            ##Pseudocode
-
-            function KruskalMST(graph):
-    result = []  // This will store the resultant MST
-    i = 0        // Index variable for sorted edges
-    e = 0        // Index variable for result[]
-
-    // Step 1: Sort all the edges in non-decreasing order of their weight.
-    sort(graph.edges)
-
-    // Allocate memory for creating V subsets
-    subsets = []
-    for v in range(graph.V):
-        subsets[v] = {parent: v, rank: 0}
-
-    // Number of edges to be taken is equal to V-1
-    while e < graph.V - 1:
-        // Step 2: Pick the smallest edge and increment the index for next iteration
-        next_edge = graph.edges[i]
-        i = i + 1
-
-        x = find(subsets, next_edge.src)
-        y = find(subsets, next_edge.dest)
-
-        // If including this edge does not cause a cycle, include it in the result and increment the index of result for next edge
-        if x != y:
-            e = e + 1
-            result.append(next_edge)
-            union(subsets, x, y)
-
-    // Print the contents of result[] to display the built MST
-    for each edge in result:
-        print(edge.src, edge.dest, edge.weight)
-
-
-## Time Complexity
-
-Sorting Edges: O(E log E)O(E \log E)O(ElogE), where E is the number of edges.
-Union-Find Operations: Almost O(E)O(E)O(E) due to the inverse Ackermann function.
-Overall Time Complexity: O(ElogE+Eα(V))≈O(ElogE)O(E \log E + E \alpha(V)) 
-\approx O(E \log E)O(ElogE+Eα(V))≈O(ElogE).
-
-## Flowchart
-
-Start
-
-Sort Edges by Weight
-
-Initiaze Subsets for each vertex
-While edges in MST<v-1
-
-Yes
-Select the next smallest edge
-
-Find roots of the sets to which the selected edge’s vertices belong
-
-If in differnt sets:
-Add edges to MST
-Union the sets
-
-End
-
-
-![Kruskal's_Algo_Flowchart](./c:\Users\NETHERLAND STORE\Downloads\Flowchartt.png)
