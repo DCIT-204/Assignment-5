@@ -19,6 +19,10 @@ public  class util {
     static class QueueFrontier {
         List<Node> items = new ArrayList<>();
 
+        public QueueFrontier(){
+            Node endNode = new Node(Integer.MAX_VALUE,null,Integer.MAX_VALUE);
+            items.add(endNode);
+        }
 
         public boolean isEmpty() {
             return items.isEmpty();
@@ -29,8 +33,13 @@ public  class util {
             for(Node node: items){
                 if(node.distanceFromParent > item.distanceFromParent){
                     items.add(items.indexOf(node), item);
+
+                    if(node.parent == item.parent && node.state == item.state){
+                        items.remove(node);
+                    }
                     return;
                 }
+                //maybe another check to avoid repeating nodes.
             }
                 items.add(item);
         }
