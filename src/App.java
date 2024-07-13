@@ -69,6 +69,18 @@ public class App {
                 System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
                 break;
 
+            case 5:
+                ArrayList<double[]> points = helpers.getPoints();
+                timeTaken = helpers.measureTime(() -> {
+                    ArrayList<double[]> hull = QuickHull.quickHull(points);
+                    System.out.println("Convex Hull points:");
+                    for (double[] point: hull){
+                        System.out.println("{" + point[0] + ", " + point[1] + "}");
+                    }
+                });
+                System.out.println("Time taken (nanoseconds): " + timeTaken + "\n");
+                break;
+
             case 6:
                 int numberOfVertices = helpers.getSize("Enter the number of vertices (minimum 2): ", 2);
                 List<List<Edge>> adjacencyList = new ArrayList<>();

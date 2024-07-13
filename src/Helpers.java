@@ -144,6 +144,22 @@ public class Helpers {
         return matrix;
     }
 
+    // Method to get points from the user for the Quickhull algorithm
+    public ArrayList<double[]> getPoints() {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<double[]> points = new ArrayList<>();
+        int numPoints = getSize("Enter number of points: ");
+        for (int i = 0; i < numPoints; i++) {
+            double[] point = new double[2]; // Assuming 2D points (x, y)
+            System.out.print("Enter x-coordinate for point " + (i + 1) + ": ");
+            point[0] = scanner.nextDouble();
+            System.out.print("Enter y-coordinate for point " + (i + 1) + ": ");
+            point[1] = scanner.nextDouble();
+            points.add(point);
+        }
+        return points;
+    }
+
     // Helper method to print a matrix
     public static void printMatrix(int[][] matrix) {
         int n = matrix.length;
