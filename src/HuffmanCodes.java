@@ -84,6 +84,18 @@ public class HuffmanCodes {
         }
     }
 
+    //encoding the input text
+    public static String encode(String inputString,HashMap<Character,String> characterCodeMap){
+        StringBuilder encodedString= new StringBuilder();
+
+        for(char character: inputString.toCharArray()){
+            encodedString.append(characterCodeMap.get(character));
+        }
+        return encodedString.toString();
+    }
+
+
+
 
 }
 
