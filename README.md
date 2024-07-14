@@ -51,7 +51,7 @@ The Master Theorem finds the time complexity of a divide and conquer algorithm, 
 The general form of the recurrence relation is
 
 $$
-\begin{equation} T(n) = aT(\frac{n}{b}) + O(n) \end{equation} 
+\begin{equation} T(n) = aT(\frac{n}{b}) + f(n) \end{equation} 
 $$
 
 where:
