@@ -42,7 +42,7 @@ V = number of vertices and E = number of edges
 
 ## Flowchart
 
-![Prim's_Algo_Flowchart](./images/Prim's%20Algo%20FlowChart.svg)
+![Prim's_Algo_Flowchart](./images/Prim's%20Algo.png)
 
 ## Pseudocode
 
