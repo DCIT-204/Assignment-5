@@ -49,13 +49,17 @@ The time complexity of the Quickhull algorithm can be calculated by using The Ma
 The Master Theorem finds the time complexity of a divide and conquer algorithm, which can be expressed as a recurrence relation.
 
 The general form of the recurrence relation is
-$$ \begin{equation} T(n) = aT(\frac{n}{b}) + O(n) \end{equation} $$
-where:
-- $ a $ is the number of subproblems in the algorithm
-- $ \frac{n}{b} $ is the size of each subproblem
-- $ f(n) $ is the cost of the work done outside of the recursive calls.
 
-After finding the recursive function of the algorithm, if $ f(n) = O (n^d) $ for some $ d \ge 1 $, then the time complexity is given as
+$$
+\begin{equation} T(n) = aT(\frac{n}{b}) + O(n) \end{equation} 
+$$
+
+where:
+- $a$ is the number of subproblems in the algorithm
+- $\frac{n}{b}$ is the size of each subproblem
+- $f(n)$ is the cost of the work done outside of the recursive calls.
+
+After finding the recursive function of the algorithm, if $f(n) = O (n^d)$ for some $d \ge 1$, then the time complexity is given as
 
 $$ 
 \begin{equation}
@@ -69,24 +73,34 @@ T(n)=
 $$
 
 In the Quickhull algorithm, we have that:
-- $ a = 2 $ since we divide the set of points into two.
-- $ b = 2 $ since each subproblem is also divided into two
-- $ f(n) = O(n) $ because the work done outside the algorithm includes: 
-    - Finding the Min and Max Points: $ O(n) $
-    - Partitioning Points: $ O(n) $
-    - Finding the Farthest Points: $ O(n) $
-    - Removing Points Inside the Triangle: $ O(n) $
+- $a = 2$ since we divide the set of points into two.
+- $b = 2$ since each subproblem is also divided into two
+- $f(n) = O(n)$ because the work done outside the algorithm includes: 
+    - Finding the Min and Max Points: $O(n)$
+    - Partitioning Points: $O(n)$
+    - Finding the Farthest Points: $O(n)$
+    - Removing Points Inside the Triangle: $O(n)$
 
-Thus, the recurrence relation for the Quickhull Algorithm becomes, from $ (1) $:
+Thus, the recurrence relation for the Quickhull Algorithm becomes, from $(1)$:
 
-$$ \begin{equation} T(n) = 2T(\frac{n}{2}) + O(n) \end{equation} $$
+$$ 
+\begin{equation} T(n) = 2T(\frac{n}{2}) + O(n) \end{equation} 
+$$
 
-Since $ f(n) = O(n) $, we have that $ d = 1 $ and $ b^d = 2^1 = 2 $
+Since $f(n) = O(n)$, we have that $d = 1$ and $b^d = 2^1 = 2$
 
-Comparing $ a $ and $ b^d $, we see that $ a = b^d $, which satisfies the second condition from $ (2) $, meaning that its time complexity is of the form $ O(n^d \log n) $
+Comparing $a$ and $b^d$, we see that $a = b^d$, which satisfies the second condition from $(2)$, meaning that its time complexity is of the form 
 
-Since $ d = 1 $, the time complexity of the Quickhull Algorithm is 
-$$ O(n \log n) $$
+$$
+O(n^d \log n)
+$$
+
+
+Since $d = 1$, the time complexity of the Quickhull Algorithm is 
+
+$$ 
+O(n \log n) 
+$$
 
 ## Strassen's Matrix Multiplication
 
