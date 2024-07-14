@@ -73,7 +73,14 @@ public class Helpers {
         int n = getSize("Enter the number of vertices in the graph: ");
         int[][] matrix = new int[n][n];
         try {
-            return getInts(scanner, n, matrix);
+            for (int i = 0; i < n; i++) {
+                System.out.println("Enter the distances from vertex " + (i + 1) + " to all other vertices: ");
+                for (int j = 0; j < n; j++) {
+                    System.out.print("Vertex " + (j + 1) + ": ");
+                    matrix[i][j] = scanner.nextInt();
+                }
+            }
+            return matrix;
         } catch (Exception e) {
             System.out.println("Please enter a valid number!");
             matrix = getMatrixTSP();
@@ -195,48 +202,14 @@ public class Helpers {
         return endTime - startTime;
     }
 
-    public int [][] getMatrixDijkstra(){
-        Scanner scanner = new Scanner(System.in);
-        int n = getSize("Enter the number of vertices in the graph: ");
-        int[][] matrix = new int[n][n];
-        try {
-            return getInts(scanner, n, matrix, 0);
-        } catch (Exception e) {
-            System.out.println("Please enter a valid number!");
-            matrix = getMatrixDijkstra();
-        }
-        return matrix;
-    }
-
-    private int[][] getInts(Scanner scanner, int n, int[][] matrix) {
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter the distances from vertex " + (i + 1) + " to all other vertices: ");
-            for (int j = 0; j < n; j++) {
-                System.out.print("Vertex " + (j + 1) + ": ");
-                matrix[i][j] = scanner.nextInt();
+    public List<Integer> neighboursOfNode(int [][] graph, int node){
+        List<Integer> neighbours = new ArrayList<>();
+        for(int i = 0; i < graph.length; i++){
+            if(graph[node][i] != 0){
+                neighbours.add(i);
             }
         }
-        return matrix;
-    }
-    private int[][] getInts(Scanner scanner, int n, int[][] matrix, int min) {
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter the distances from vertex " + (i + 1) + " to all other vertices: ");
-            for (int j = 0; j < n; j++) {
-                if (i == j) {
-                    matrix[i][j] = 0;
-                    continue;
-                }
-                System.out.print("Vertex " + (j + 1) + ": ");
-                int value = scanner.nextInt();
-                if(value < min){
-                    System.out.println("Please enter a positive number!");
-                    j--;
-                    continue;
-                }
-                matrix[i][j] = value;
-            }
-        }
-        return matrix;
+        return neighbours;
     }
 
 }

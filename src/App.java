@@ -129,7 +129,7 @@ public class App {
                 break;
 
             case 8:
-                int[][] dijkGraph = helpers.getMatrixDijkstra();
+                int[][] dijkGraph = helpers.getMatrixTSP();
                 int source = helpers.getSize("Enter the source node: ");
                 int target = helpers.getSize("Enter the target node: ");
                 timeTaken = helpers.measureTime(() -> {
